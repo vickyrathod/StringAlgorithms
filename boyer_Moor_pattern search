@@ -1,0 +1,65 @@
+//
+//  thougthwork2.cpp
+//  Coding
+//
+//  Created by Rathod, Vicky - Vicky on 07/04/19.
+//  Copyright © 2019 Rathod, Vicky - Vicky. All rights reserved.
+//
+#include<iostream>
+#include <string>
+using namespace std;
+
+int main(){
+    
+    string t;
+    string p;
+    
+    cin >> t;
+    cin >> p;
+    
+    int lt = t.length();
+    int lp = p.length();
+    
+    int i = lp - 1;
+    int j = lp - 1;
+    
+    // boolean to track good suffix and bad character
+    bool f = true;
+    
+    //number of matches
+    int count = 0;
+    
+    while (i < lt) {
+        /*
+         * good suffix heuristic
+         */
+        if((t[i] == p[j]) && f) {
+            i --;
+            j --;
+        }
+        /*
+        * bad character heuristic
+        */
+        else if( t[i] != p[j]){
+            f = false;
+            j --;
+        } else if(!f) {
+            i = i + lp - j - 1;
+            j = lp - 1;
+            f = true;
+        }
+        
+        if(j ==  -1) {
+            if(f) {
+              count ++;
+                i = i + lp + 1;
+            } else {
+                i = i + lp;
+            }
+            j = lp - 1;
+            f = true;
+        }
+    }
+    
+    cout << count << endl;
+}
